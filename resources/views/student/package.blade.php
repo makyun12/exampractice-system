@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title',__('ui.packages'))
+@section('content')
+<a class="back-link" href="{{ route('programs.show',$package->module->program) }}"><i data-lucide="arrow-left"></i>{{ $package->module->title }}</a>
+<div class="package-intro"><span class="item-icon blue large"><i data-lucide="clipboard-check"></i></span><span class="eyebrow">{{ $package->module->program->title }}</span><h1>{{ $package->title }}</h1><p class="muted">{{ $package->description }}</p><div class="package-facts"><div><i data-lucide="circle-help"></i><strong>{{ $package->questions_count }}</strong><span>{{ __('ui.questions') }}</span></div><div><i data-lucide="timer"></i><strong>{{ $package->duration_minutes }}</strong><span>{{ __('ui.minutes') }}</span></div><div><i data-lucide="target"></i><strong>{{ $package->passing_score }}%</strong><span>{{ __('ui.passing_score') }}</span></div></div><p class="info-note"><i data-lucide="info"></i>{{ __('ui.attempt_note') }}</p><form method="POST" action="{{ route('packages.start',$package) }}">@csrf<button class="button primary" @disabled($package->questions_count===0)>{{ $ongoing ? __('ui.resume') : __('ui.start_practice') }}<i data-lucide="arrow-right"></i></button></form>@if(!$package->questions_count)<p class="muted">{{ __('ui.no_questions') }}</p>@endif</div>
+@endsection
